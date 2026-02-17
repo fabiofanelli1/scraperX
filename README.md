@@ -1,10 +1,10 @@
-# 🛡️ ScrapeX — X.com Vulnerability Monitor
+# 🛡️ ScraperX — X.com Vulnerability Monitor
 
 Real-time monitoring of vulnerability disclosures on X.com (Twitter). Runs automated searches every 5 or X minutes and surfaces only new tweets — no API keys required.
 
 ## What is ScrapeX
 
-ScrapeX is a command-line tool built for **security analysts**, **SOC teams**, and **sysadmins** who need to know in real time when new vulnerabilities are disclosed for the products they manage.
+ScraperX is a command-line tool built for **security analysts**, **SOC teams**, and **sysadmins** who need to know in real time when new vulnerabilities are disclosed for the products they manage.
 
 The problem is straightforward: information about new CVEs, exploits, and zero-days often surfaces on X.com (Twitter) **hours or days before** official vendor advisories. Security researchers, threat intelligence accounts, and infosec journalists publish details, PoCs, and analyses that can make the difference between a system patched in time and a security incident.
 
@@ -12,16 +12,16 @@ The problem is straightforward: information about new CVEs, exploits, and zero-d
 
 - **Monitors X.com automatically** — Every 5 minutes (configurable), the script runs targeted searches on X.com looking for tweets that contain both the vendor name (Fortinet, Microsoft, Cisco) and the word "vulnerability", filtered by English and Italian language and limited to the last 2 days
 - **Shows only new results** — Thanks to a built-in deduplication system, each tweet is displayed only once. If the script runs for hours, you'll only see new tweets compared to previous cycles
-- **Requires no API keys** — VulnWatch doesn't use X's official APIs (which are paid and heavily rate-limited). It uses Selenium to simulate a real browser and navigate search pages just like a regular user would
+- **Requires no API keys** — ScraperX doesn't use X's official APIs (which are paid and heavily rate-limited). It uses Selenium to simulate a real browser and navigate search pages just like a regular user would
 - **Protects your credentials** — X session cookies are encrypted on disk with AES-256 and are never stored in plaintext. The session auto-renews on every cycle, so you only need to export cookies from your browser once
 - **Is easily extensible** — You can add new vendors, modify queries, change languages, or adjust the monitoring interval by editing a few lines of configuration
 
 ### Real-World Usage Example
 
-You're a sysadmin managing Fortinet firewalls and Windows servers. You launch VulnWatch in a terminal (or in the background via tmux):
+You're a sysadmin managing Fortinet firewalls and Windows servers. You launch ScraperX in a terminal (or in the background via tmux):
 
 ```
-$ python x_search.py --headless
+$ python scraperx.py --headless
 🔐 Cookie password: ********
 ✅ Cookie-based login successful!
 ✅ Monitor started. Press Ctrl+C to stop.
@@ -131,7 +131,7 @@ pip install selenium rich cryptography
 
 ### 2. Export Cookies from Your Browser (One Time Only)
 
-Since X.com blocks automated login, VulnWatch uses your existing browser session via cookies.
+Since X.com blocks automated login, ScraperX uses your existing browser session via cookies.
 
 1. Install the **[Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)** browser extension (Chrome/Firefox)
 2. Go to [x.com](https://x.com) and log in normally
@@ -188,29 +188,29 @@ python x_search.py
 
 ```bash
 # All vendors, every 5 minutes
-python x_search.py
+python scraperx.py
 
 # Specific vendors only
-python x_search.py --vendor fortinet cisco
+python scraperx.py --vendor fortinet cisco
 
 # Custom interval (10 minutes)
-python x_search.py --interval 600
+python scraperx.py --interval 600
 
 # Headless (no browser window — ideal for servers)
-python x_search.py --headless
+python scraperx.py --headless
 
 # Custom cookie file path
-python x_search.py --cookies /path/to/cookies.enc
+python scraperx.py --cookies /path/to/cookies.enc
 
 # More results per query
-python x_search.py --max 20
+python scraperx.py --max 20
 ```
 
 ### Single Search Mode
 
 ```bash
-python x_search.py --mode single "FortiGate RCE"
-python x_search.py --mode single "Exchange Server zero-day" --max 20
+python scraperx.py --mode single "FortiGate RCE"
+python scraperx.py --mode single "Exchange Server zero-day" --max 20
 ```
 
 ### All CLI Options
@@ -231,13 +231,13 @@ python x_search.py --mode single "Exchange Server zero-day" --max 20
 
 ## Security
 
-VulnWatch handles session tokens that are equivalent to passwords. Here's how they're protected:
+ScraperX handles session tokens that are equivalent to passwords. Here's how they're protected:
 
 ### Encryption at Rest
 Cookies are encrypted with **AES-256-GCM** using the `cryptography` library's Fernet scheme. The encryption key is derived from your password via **PBKDF2-HMAC-SHA256** with 480,000 iterations (per OWASP 2023 guidelines) and a random 16-byte salt.
 
 ### Cookie Auto-Refresh
-After every monitoring cycle, VulnWatch extracts the latest cookies from the browser session (X.com renews tokens during navigation) and re-encrypts them into the `.enc` file. This means **you never need to re-export cookies from your browser** — the file stays current automatically.
+After every monitoring cycle, ScraperX extracts the latest cookies from the browser session (X.com renews tokens during navigation) and re-encrypts them into the `.enc` file. This means **you never need to re-export cookies from your browser** — the file stays current automatically.
 
 ### File Permissions
 The `.enc` file is set to `chmod 600` (owner read/write only). The script verifies permissions on every startup and auto-corrects if other users have read access.
@@ -345,8 +345,8 @@ python x_search.py --headless
 ## Project Structure
 
 ```
-vulnwatch/
-├── x_search.py       # Main script (single file, no external modules)
+scraperx/
+├── scraperx.py       # Main script (single file, no external modules)
 ├── cookies.enc       # Encrypted session cookies (generated, gitignored)
 ├── cookies.txt       # Raw cookies (temporary, deleted after encryption)
 ├── README.md
