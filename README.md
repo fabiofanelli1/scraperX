@@ -1,10 +1,10 @@
-# 🛡️ VulnWatch — X.com Vulnerability Monitor
+# 🛡️ ScrapeX — X.com Vulnerability Monitor
 
 Real-time monitoring of vulnerability disclosures on X.com (Twitter). Runs automated searches every 5 or X minutes and surfaces only new tweets — no API keys required.
 
 ## What is VulnWatch
 
-VulnWatch is a command-line tool built for **security analysts**, **SOC teams**, and **sysadmins** who need to know in real time when new vulnerabilities are disclosed for the products they manage.
+ScrapeX is a command-line tool built for **security analysts**, **SOC teams**, and **sysadmins** who need to know in real time when new vulnerabilities are disclosed for the products they manage.
 
 The problem is straightforward: information about new CVEs, exploits, and zero-days often surfaces on X.com (Twitter) **hours or days before** official vendor advisories. Security researchers, threat intelligence accounts, and infosec journalists publish details, PoCs, and analyses that can make the difference between a system patched in time and a security incident.
 
@@ -57,7 +57,7 @@ $ python x_search.py --headless
 
 ## How It Works
 
-VulnWatch uses Selenium to simulate a real browser session on X.com. It cycles through predefined search queries targeting vulnerability disclosures for major vendors, deduplicates results across runs, and displays only new findings in your terminal.
+ScrapeX uses Selenium to simulate a real browser session on X.com. It cycles through predefined search queries targeting vulnerability disclosures for major vendors, deduplicates results across runs, and displays only new findings in your terminal.
 
 ```
 "Fortinet" "vulnerability" (lang:en OR lang:it) since:2026-02-15
