@@ -2,7 +2,7 @@
 
 Real-time monitoring of vulnerability disclosures on X.com (Twitter). Runs automated searches every 5 or X minutes and surfaces only new tweets — no API keys required.
 
-## What is VulnWatch
+## What is ScrapeX
 
 ScrapeX is a command-line tool built for **security analysts**, **SOC teams**, and **sysadmins** who need to know in real time when new vulnerabilities are disclosed for the products they manage.
 
