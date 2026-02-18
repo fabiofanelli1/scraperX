@@ -818,16 +818,16 @@ def main():
     # ── Banner ──
     if USE_RICH:
         console.print(Panel(
-            "[bold white]🛡️  X.com Vulnerability Monitor[/]\n"
+            "[bold white]🛡️  ScrapeX - Vulnerability & Cyber Attack Monitor[/]\n"
             "[dim]Monitoraggio automatico vulnerabilità Fortinet / Microsoft / Cisco[/]\n\n"
             f"[cyan]Modalità:[/] {args.mode}   "
             f"[cyan]Intervallo:[/] {args.interval}s   "
             f"[cyan]Headless:[/] {'Sì' if args.headless else 'No'}",
-            title="[bold red]VulnWatch[/]",
+            title="[bold red]ScrapeX[/]",
             box=box.DOUBLE,
         ))
     else:
-        print_header("🛡️  X.com Vulnerability Monitor")
+        print_header("🛡️  ScrapeX - Vulnerability Monitor")
         print(f"  Modalità: {args.mode}  |  Intervallo: {args.interval}s  |  Headless: {args.headless}\n")
 
     # ── Filtra query per vendor ──
